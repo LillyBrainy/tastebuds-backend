@@ -15,10 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from API.views import UserCreateApiView,UserLoginAPIView
+from API.views import UserCreateApiView,UserLoginAPIView,CreateVidoeAPIView,FilterVidoeSerializer,LikeVidoeAPIView,FilterUserVidoeSerializer,PickTwoVidoesRandomelyAPIView,UserProfileAPIView,UserBasicInfo
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('registerNewUser/', UserCreateApiView.as_view()),
     path('LoginUser/', UserLoginAPIView.as_view()),
+
+# Vidoe ================================
+	path('createVidoe/',CreateVidoeAPIView.as_view()),
+	path('filterVidoe/<str:category>/',FilterVidoeSerializer.as_view()),
+	path('filterUserVidoe/<int:user_id>/',FilterUserVidoeSerializer.as_view()),
+	path('voteVidoe/<int:vidoe_id>/',LikeVidoeAPIView.as_view()),
+	path('PickVidoeRandomly/<str:category>/',PickTwoVidoesRandomelyAPIView.as_view()),
+# Profile ================================	
+	path('UserBasicInfo/<int:user_id>/',UserBasicInfo.as_view()),  # to get the logged in user profile id (call it in authStore , Setuser)
+	path('UserProfile/<int:profile_id>/',UserProfileAPIView.as_view()),    
 ]
